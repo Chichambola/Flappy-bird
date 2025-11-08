@@ -8,8 +8,6 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-        
-        Debug.Log(Quaternion.identity);
+        Bullet bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, transform.rotation.z));
     }
 }

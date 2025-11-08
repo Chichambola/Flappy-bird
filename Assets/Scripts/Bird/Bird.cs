@@ -9,7 +9,6 @@ using UnityEngine;
 [RequireComponent(typeof(ScoreCounter))]
 [RequireComponent(typeof(BirdCollisonDetector))]
 [RequireComponent(typeof(InputReader))]
-[RequireComponent(typeof(Gun))]
 public class Bird : MonoBehaviour
 {
     private Gun _gun;
