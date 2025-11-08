@@ -16,7 +16,8 @@ public class BirdMover : MonoBehaviour
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
     private Rigidbody2D _rigidbody;
-
+    private Coroutine _coroutine;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -30,20 +31,33 @@ public class BirdMover : MonoBehaviour
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
     }
 
-    private void Update()
+    public void Move()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _rigidbody.velocity = new Vector2(_speed, _tapForce);
-            gameObject.transform.rotation = _maxRotation;
-        }
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+        
+        _rigidbody.velocity = new Vector2(_speed, _tapForce);
+       
+        gameObject.transform.rotation = _maxRotation;
 
-        transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+        _coroutine = StartCoroutine(FallingRotation());
     }
 
+    private IEnumerator FallingRotation()
+    {
+        while (enabled)
+        {
+            transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+            
+            yield return null;
+        }
+    }
+    
     public void Reset()
     {
-        
+        transform.position = _startPosition;
+        transform.rotation = Quaternion.identity;
+        _rigidbody.velocity = Vector2.zero;
     }
 }
     
