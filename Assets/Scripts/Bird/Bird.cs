@@ -11,10 +11,10 @@ using UnityEngine;
 [RequireComponent(typeof(InputReader))]
 public class Bird : MonoBehaviour
 {
-    private Gun _gun;
+    [SerializeField] private Gun _gun;
     private BirdMover _mover;
     private ScoreCounter _scoreCounter;
-    private BirdCollisonDetector _collisonDetector;
+    private BirdCollisonDetector _collisionDetector;
     private InputReader _inputReader;
 
     public event Action GameOver;
@@ -23,19 +23,18 @@ public class Bird : MonoBehaviour
     {
         _mover = GetComponent<BirdMover>();
         _scoreCounter = GetComponent<ScoreCounter>();
-        _collisonDetector = GetComponent<BirdCollisonDetector>();
+        _collisionDetector = GetComponent<BirdCollisonDetector>();
         _inputReader = GetComponent<InputReader>();
-        _gun = GetComponent<Gun>();
     }
 
     private void OnEnable()
     {
-        _collisonDetector.CollisionDetected += ProcessCollision;
+        _collisionDetector.CollisionDetected += ProcessCollision;
     }
 
     private void OnDisable()
     {
-        _collisonDetector.CollisionDetected -= ProcessCollision;
+        _collisionDetector.CollisionDetected -= ProcessCollision;
     }
 
     private void FixedUpdate()
@@ -57,8 +56,11 @@ public class Bird : MonoBehaviour
         _scoreCounter.Reset();
     }
 
-    private void ProcessCollision(IInteractable interactable)
+    private void ProcessCollision(IInteractable collision)
     {
-        
+        if (collision is Bullet || collision is Ground)
+        {
+            GameOver?.Invoke();
+        }
     }
 }

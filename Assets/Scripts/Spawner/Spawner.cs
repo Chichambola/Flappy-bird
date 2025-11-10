@@ -6,9 +6,9 @@ using UnityEngine.Pool;
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 {
     [SerializeField] private T _objectPrefab;
+    [SerializeField] protected Collider2D SpawnArea;
     [SerializeField] protected int PoolCapacity;
     [SerializeField] protected int MaxPoolCapacity;
-    [SerializeField] protected float NumberOfActiveObjects;
 
     private ObjectPool<T> _pool;
 
@@ -30,6 +30,11 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
         return Instantiate(_objectPrefab);
     }
 
+    protected void GetObject()
+    {
+        _pool.Get();
+    }
+    
     protected virtual void ActionOnGet(T @object)
     {
         @object.gameObject.SetActive(true);
@@ -46,7 +51,5 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
     protected virtual void ActionOnRelease(T @object)
     {
         @object.gameObject.SetActive(false);
-
-        @object.ResetCharacteristics();
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPoolable
+public class Enemy : MonoBehaviour
 {
-    public void ResetCharacteristics()
+    public void Die()
     {
-        
+        Destroy(gameObject);
     }
 }

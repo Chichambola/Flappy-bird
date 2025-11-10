@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Ground : MonoBehaviour, IInteractable
+public class Bullet : MonoBehaviour, IPoolable, IInteractable
 {
+
 }
