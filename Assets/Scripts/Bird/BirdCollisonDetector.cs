@@ -16,9 +16,14 @@ public class BirdCollisonDetector : MonoBehaviour
         _bird = GetComponent<Bird>();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnValidate()
     {
-        if (other.collider.TryGetComponent(out IInteractable interactable))
+        GetComponent<Collider2D>().isTrigger = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IInteractable interactable))
         {
             CollisionDetected?.Invoke(interactable);
         }

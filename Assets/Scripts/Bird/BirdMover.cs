@@ -13,6 +13,7 @@ public class BirdMover : MonoBehaviour
     [SerializeField] private float _minRotationZ;
 
     private Vector3 _startPosition;
+    private Quaternion _startRotation;
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
     private Rigidbody2D _rigidbody;
@@ -26,6 +27,7 @@ public class BirdMover : MonoBehaviour
     private void OnEnable()
     {
         _startPosition = gameObject.transform.position;
+        _startRotation = gameObject.transform.rotation;
 
         _maxRotation = Quaternion.Euler(0, 0, _maxRotationZ);
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
@@ -56,7 +58,7 @@ public class BirdMover : MonoBehaviour
     public void Reset()
     {
         transform.position = _startPosition;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = _startRotation;
         _rigidbody.velocity = Vector2.zero;
     }
 }

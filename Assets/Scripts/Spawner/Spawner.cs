@@ -6,7 +6,6 @@ using UnityEngine.Pool;
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 {
     [SerializeField] private T _objectPrefab;
-    [SerializeField] protected Collider2D SpawnArea;
     [SerializeField] protected int PoolCapacity;
     [SerializeField] protected int MaxPoolCapacity;
 
