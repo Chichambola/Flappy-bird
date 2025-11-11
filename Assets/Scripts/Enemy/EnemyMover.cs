@@ -27,6 +27,14 @@ public class EnemyMover : MonoBehaviour
         _coroutine = StartCoroutine(Move());
     }
 
+    public void ToggleDirection()
+    {
+        if (_direction == Vector3.up)
+            _direction = Vector3.down;
+        else if (_direction == Vector3.down)
+            _direction = Vector3.up;
+    }
+
     private IEnumerator Move()
     {
         while (enabled)
@@ -35,13 +43,5 @@ public class EnemyMover : MonoBehaviour
 
             yield return null;
         }
-    }
-
-    public void ToggleDirection()
-    {
-        if (_direction == Vector3.up)
-            _direction = Vector3.down;
-        else if (_direction == Vector3.down)
-            _direction = Vector3.up;
     }
 }

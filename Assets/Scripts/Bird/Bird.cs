@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(BirdMover))]
-[RequireComponent(typeof(ScoreCounter))]
 [RequireComponent(typeof(CollisonDetector))]
 [RequireComponent(typeof(InputReader))]
 public class Bird : MonoBehaviour
@@ -14,7 +13,6 @@ public class Bird : MonoBehaviour
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private SpawnPoint _spawnPoint;
     private BirdMover _mover;
-    private ScoreCounter _scoreCounter;
     private CollisonDetector _collisionDetector;
     private InputReader _inputReader;
 
@@ -23,7 +21,6 @@ public class Bird : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<BirdMover>();
-        _scoreCounter = GetComponent<ScoreCounter>();
         _collisionDetector = GetComponent<CollisonDetector>();
         _inputReader = GetComponent<InputReader>();
     }
@@ -61,11 +58,6 @@ public class Bird : MonoBehaviour
         if (collision is Bullet || collision is Ground)
         {
             GameOver?.Invoke();
-        }
-
-        if (collision is Enemy) 
-        {
-            Debug.Log("0");
         }
     }
 }

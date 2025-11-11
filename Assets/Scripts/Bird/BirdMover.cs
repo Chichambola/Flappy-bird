@@ -45,6 +45,13 @@ public class BirdMover : MonoBehaviour
         _coroutine = StartCoroutine(FallingRotation());
     }
 
+    public void Reset()
+    {
+        transform.position = _startPosition;
+        transform.rotation = _startRotation;
+        _rigidbody.velocity = Vector2.zero;
+    }
+
     private IEnumerator FallingRotation()
     {
         while (enabled)
@@ -53,13 +60,6 @@ public class BirdMover : MonoBehaviour
             
             yield return null;
         }
-    }
-    
-    public void Reset()
-    {
-        transform.position = _startPosition;
-        transform.rotation = _startRotation;
-        _rigidbody.velocity = Vector2.zero;
     }
 }
     

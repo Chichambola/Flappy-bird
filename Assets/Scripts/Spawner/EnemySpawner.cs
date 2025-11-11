@@ -25,21 +25,6 @@ public class EnemySpawner : Spawner<Enemy>
         _coroutine = StartCoroutine(Spawn());
     }
 
-    public override void ReleaseAll()
-    {
-        if (ActiveObjects.Count != 0)
-        {
-            foreach (Enemy enemy in ActiveObjects.ToList())
-            {
-                enemy.OnBulletHit -= Release;
-
-                Release(enemy);
-            }
-
-            ActiveObjects.Clear();
-        }
-    }
-
     protected override void ActionOnGet(Enemy enemy)
     {
         enemy.Init(_bulletSpawner);

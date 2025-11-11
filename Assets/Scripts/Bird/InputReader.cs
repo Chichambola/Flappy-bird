@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
+    private const KeyCode JumpButton = KeyCode.Space;
+    private const KeyCode FireButton = KeyCode.E;
+
     private bool _isJumping;
-    public bool _isFiring;
+    private bool _isFiring;
 
     public bool GetIsJump() => ResetBoolValue(ref _isJumping);
     public bool GetIsFiring() => ResetBoolValue(ref _isFiring);
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(FireButton))
         {
             _isFiring = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(JumpButton))
         {
             _isJumping = true;
         }

@@ -21,21 +21,6 @@ public class BulletSpawner : Spawner<Bullet>
         GetObject();
     }
 
-    public override void ReleaseAll()
-    {
-        if(ActiveObjects.Count != 0)
-        {
-            foreach (Bullet bullet in ActiveObjects.ToList())
-            {
-                bullet.IsHit -= Release;
-
-                Release(bullet);
-            }
-
-            ActiveObjects.Clear();
-        }
-    }
-
     protected override void ActionOnGet(Bullet bullet)
     {
         bullet.transform.position = _position;

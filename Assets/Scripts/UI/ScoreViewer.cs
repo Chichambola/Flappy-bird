@@ -14,6 +14,11 @@ public class ScoreViewer : MonoBehaviour
         _scoreCounter.ValueChanged += UpdateValue;
     }
 
+    private void OnDisable()
+    {
+        _scoreCounter.ValueChanged -= UpdateValue;
+    }
+
     private void UpdateValue(int value)
     {
         _text.text = $"{value}";

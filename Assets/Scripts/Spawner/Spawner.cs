@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -25,12 +27,18 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
             maxSize: MaxPoolCapacity);
     }
 
-    private T CreateObject()
+    public void ReleaseAll() 
     {
-        return Instantiate(_objectPrefab);
-    }
+        if (ActiveObjects.Count != 0)
+        {
+            foreach (T obj in ActiveObjects.ToList())
+            {
+                Release(obj);
+            }
 
-    public virtual void ReleaseAll() {}
+            ActiveObjects.Clear();
+        }
+    }
 
     protected void GetObject()
     {
@@ -53,5 +61,10 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
     protected virtual void ActionOnRelease(T @object)
     {
         @object.gameObject.SetActive(false);
+    }
+
+    private T CreateObject()
+    {
+        return Instantiate(_objectPrefab);
     }
 }
