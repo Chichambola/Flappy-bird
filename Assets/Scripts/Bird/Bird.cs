@@ -7,14 +7,15 @@ using UnityEngine;
 
 [RequireComponent(typeof(BirdMover))]
 [RequireComponent(typeof(ScoreCounter))]
-[RequireComponent(typeof(BirdCollisonDetector))]
+[RequireComponent(typeof(CollisonDetector))]
 [RequireComponent(typeof(InputReader))]
 public class Bird : MonoBehaviour
 {
-    [SerializeField] private Gun _gun;
+    [SerializeField] private BulletSpawner _bulletSpawner;
+    [SerializeField] private SpawnPoint _spawnPoint;
     private BirdMover _mover;
     private ScoreCounter _scoreCounter;
-    private BirdCollisonDetector _collisionDetector;
+    private CollisonDetector _collisionDetector;
     private InputReader _inputReader;
 
     public event Action GameOver;
@@ -23,7 +24,7 @@ public class Bird : MonoBehaviour
     {
         _mover = GetComponent<BirdMover>();
         _scoreCounter = GetComponent<ScoreCounter>();
-        _collisionDetector = GetComponent<BirdCollisonDetector>();
+        _collisionDetector = GetComponent<CollisonDetector>();
         _inputReader = GetComponent<InputReader>();
     }
 
@@ -46,14 +47,13 @@ public class Bird : MonoBehaviour
 
         if (_inputReader.GetIsFiring())
         {
-            _gun.Shoot();
+            _bulletSpawner.Shoot(_spawnPoint.transform.position, gameObject.transform.rotation);
         }
     }
 
     public void Reset()
     {
         _mover.Reset();
-        _scoreCounter.Reset();
     }
 
     private void ProcessCollision(IInteractable collision)
@@ -61,6 +61,11 @@ public class Bird : MonoBehaviour
         if (collision is Bullet || collision is Ground)
         {
             GameOver?.Invoke();
+        }
+
+        if (collision is Enemy) 
+        {
+            Debug.Log("0");
         }
     }
 }

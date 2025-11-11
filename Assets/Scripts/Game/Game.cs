@@ -2,12 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Bird _bird;
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndScreen _endScreen;
+    [SerializeField] private ScoreCounter _scoreCounter;
 
     private void OnEnable()
     {
@@ -45,6 +50,9 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1;
         _bird.Reset();
+        _enemySpawner.ReleaseAll();
+        _bulletSpawner.ReleaseAll();
+        _scoreCounter.ResetValue();
     }
 
     private void OnPlayButtonClicked()

@@ -13,10 +13,7 @@ public class BulletMover : MonoBehaviour
     {
         if(_coroutine != null)
             StopCoroutine(_coroutine);
-    }
 
-    private void Start()
-    {
         _coroutine = StartCoroutine(Move());
     }
 

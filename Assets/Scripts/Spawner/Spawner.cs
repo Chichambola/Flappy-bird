@@ -10,6 +10,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
     [SerializeField] protected int MaxPoolCapacity;
 
     private ObjectPool<T> _pool;
+    protected List<T> ActiveObjects = new();
 
     private void Awake()
     {
@@ -29,9 +30,11 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
         return Instantiate(_objectPrefab);
     }
 
+    public virtual void ReleaseAll() {}
+
     protected void GetObject()
     {
-        _pool.Get();
+       _pool.Get();
     }
     
     protected virtual void ActionOnGet(T @object)
